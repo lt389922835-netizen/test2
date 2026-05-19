@@ -3,36 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的网站</title>
+    <title>乐乐的网站</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, sans-serif; line-height: 1.6; color: #333; }
-        .header { background: #2563eb; color: #fff; padding: 60px 20px; text-align: center; }
-        .header h1 { font-size: 2.5em; margin-bottom: 10px; }
-        .header p { font-size: 1.2em; opacity: 0.9; }
+        body { font-family: -apple-system, sans-serif; line-height: 1.6; color: #333; overflow-x: hidden; }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+        .bg-animation {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%; animation: gradient 15s ease infinite;
+            z-index: -1;
+        }
+        .floating-shapes { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
+        .shape {
+            position: absolute; border-radius: 50%; opacity: 0.15;
+            animation: float 6s ease-in-out infinite;
+        }
+        .shape:nth-child(1) { width: 80px; height: 80px; background: #fff; top: 10%; left: 10%; animation-delay: 0s; }
+        .shape:nth-child(2) { width: 120px; height: 120px; background: #fff; top: 60%; left: 80%; animation-delay: -2s; }
+        .shape:nth-child(3) { width: 60px; height: 60px; background: #fff; top: 80%; left: 20%; animation-delay: -4s; }
+        .header {
+            padding: 80px 20px; text-align: center; position: relative;
+            background: rgba(255,255,255,0.1); backdrop-filter: blur(8px);
+        }
+        .header h1 {
+            font-size: 3em; margin-bottom: 10px; color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            animation: fadeIn 1s ease-out;
+        }
+        .header p {
+            font-size: 1.3em; opacity: 0.95; color: #fff;
+            background: linear-gradient(90deg, #ffd700, #ff6b6b, #ffd700);
+            background-size: 200% auto;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: shimmer 3s linear infinite;
+        }
         .content { max-width: 800px; margin: 40px auto; padding: 0 20px; }
-        .card { background: #f8fafc; border-radius: 8px; padding: 24px; margin-bottom: 20px; }
-        .card h2 { margin-bottom: 8px; }
-        .footer { text-align: center; padding: 20px; color: #666; border-top: 1px solid #eee; margin-top: 40px; }
+        .card {
+            background: rgba(255,255,255,0.9); border-radius: 16px; padding: 30px; margin-bottom: 24px;
+            backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s; animation: fadeIn 0.8s ease-out forwards;
+            opacity: 0;
+        }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(0,0,0,0.15); }
+        .card:nth-child(1) { animation-delay: 0.2s; }
+        .card:nth-child(2) { animation-delay: 0.4s; }
+        .card:nth-child(3) { animation-delay: 0.6s; }
+        .card h2 { margin-bottom: 16px; font-size: 1.5em; color: #1a1a2e; }
+        .card h2 span { display: inline-block; animation: float 3s ease-in-out infinite; }
+        table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+        th, td { padding: 14px 16px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        th { background: #1a1a2e; color: #fff; font-weight: 600; }
+        th:first-child { border-radius: 8px 0 0 0; }
+        th:last-child { border-radius: 0 8px 0 0; }
+        tr:hover { background: rgba(37, 99, 235, 0.05); }
+        tr:last-child td { border-bottom: none; }
+        .tag {
+            display: inline-block; padding: 4px 12px; border-radius: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; font-size: 0.85em;
+        }
+        .footer {
+            text-align: center; padding: 30px 20px; color: #fff; margin-top: 40px;
+            background: rgba(0,0,0,0.2); backdrop-filter: blur(8px);
+        }
     </style>
 </head>
 <body>
+    <div class="bg-animation"></div>
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
     <div class="header">
-        <h1>欢迎来到我的网站</h1>
-        <p>一个简单的页面示例</p>
+        <h1>🌟 欢迎来到乐乐的小站</h1>
+        <p>✨ 生活明朗 · 万物可爱 ✨</p>
     </div>
     <div class="content">
         <div class="card">
-            <h2>关于我们</h2>
-            <p>这是使用 GitHub Pages 部署的静态页面。</p>
+            <h2><span>👋</span> 关于乐乐</h2>
+            <p style="font-size:1.1em; line-height:1.8;">
+                嗨！我是 <strong>乐乐</strong>，一个热爱生活、积极阳光的山东小伙。<br>
+                喜欢在球场上挥洒汗水，也喜欢安静地享受生活的每一刻。<br>
+                这里记录着我和小伙伴们的小小世界 🌈
+            </p>
         </div>
         <div class="card">
-            <h2>功能特点</h2>
-            <p>✅ 快速部署 · ✅ 免费托管 · ✅ 自定义域名</p>
+            <h2><span>📋</span> 信息一览</h2>
+            <table>
+                <thead>
+                    <tr><th>姓名</th><th>地址</th><th>爱好</th><th>日期</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>乐乐</strong></td><td>山东省临沂市兰山区解放路 126 号</td><td><span class="tag">🏀 打球</span></td><td>2026-05-19</td></tr>
+                    <tr><td><strong>涛涛</strong></td><td>山东省临沂市兰山区金雀山路 58 号</td><td><span class="tag">⚽ 踢球</span></td><td>2026-05-19</td></tr>
+                </tbody>
+            </table>
         </div>
     </div>
     <div class="footer">
-        <p>&copy; 2026 我的网站</p>
+        <p>&copy; 2026 乐乐的小站 · 用 ❤️ 打造</p>
     </div>
 </body>
 </html>
